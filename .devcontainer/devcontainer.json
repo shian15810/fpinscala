@@ -1,0 +1,58 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/java
+{
+  "name": "Scala",
+
+  // Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
+  "image": "mcr.microsoft.com/devcontainers/java:1-21-bookworm",
+
+  "features": {
+    "ghcr.io/devcontainers/features/java:1": {
+      "version": "none",
+      "installMaven": "false",
+      "installGradle": "false"
+    }
+  },
+
+  // Use 'forwardPorts' to make a list of ports inside the container available locally.
+  // "forwardPorts": [],
+
+  // Use 'postCreateCommand' to run commands after the container is created.
+  // "postCreateCommand": "java -version",
+  "postCreateCommand": "curl -fL https://github.com/coursier/coursier/releases/latest/download/cs-x86_64-pc-linux.gz | gzip -d > cs && chmod +x cs && ./cs setup --yes && rm -f cs",
+
+  // Configure tool-specific properties.
+  // "customizations": {},
+
+  // Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
+  // "remoteUser": "root",
+
+  "remoteEnv": {
+    "PATH": "${containerEnv:PATH}:/home/vscode/.local/share/coursier/bin"
+  },
+
+  "customizations": {
+    // Configure properties specific to VS Code.
+    "vscode": {
+      // Set *default* container specific settings.json values on container create.
+      "settings": {
+        "files.watcherExclude": {
+          "**/.bloop": true,
+          "**/.metals": true,
+          "**/.ammonite": true
+        }
+      },
+
+      "extensions": [
+        "editorconfig.editorconfig",
+        "esbenp.prettier-vscode",
+        "github.copilot",
+        "github.copilot-chat",
+        "github.vscode-github-actions",
+        "ms-vsliveshare.vsliveshare",
+        "scala-lang.scala",
+        "scalameta.metals"
+      ]
+    }
+  }
+}
