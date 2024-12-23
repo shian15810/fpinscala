@@ -39,3 +39,5 @@ List.productViaFoldLeft(List(0.0, 1.0, 2.0))
 List.productViaFoldLeft(List(1.0, 2.0, 3.0))
 
 List.lengthViaFoldLeft(l)
+
+List.reverse(l)
