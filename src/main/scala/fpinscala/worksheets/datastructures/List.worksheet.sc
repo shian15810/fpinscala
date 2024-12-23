@@ -5,6 +5,7 @@ List("a", "b")
 Cons("a", List("b"))
 Cons("a", Cons("b", Nil))
 
+List() == Nil
 List("a", "b") == Cons("a", List("b"))
 List("a", "b") == Cons("a", Cons("b", Nil))
 
@@ -27,3 +28,5 @@ List.drop(l, -2)
 
 List.dropWhile(l, x => x < 2)
 List.dropWhile(l, x => x < -2)
+
+List.init(l)
