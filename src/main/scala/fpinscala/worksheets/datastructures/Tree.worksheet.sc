@@ -12,3 +12,5 @@ val t = Branch(
         )
 
 t.maximum
+
+t.depth
