@@ -59,3 +59,5 @@ List.flatMap(l, i => List(i, i))
 List.filterViaFlatMap(l, x => x % 2 == 0)
 
 List.addPairwise(l, List(3, 4, 5))
+
+List.zipWith(l, List(3, 4, 5), (x, y) => (x, y))
