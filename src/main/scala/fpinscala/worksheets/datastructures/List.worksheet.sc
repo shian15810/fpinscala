@@ -32,3 +32,10 @@ List.dropWhile(l, x => x < -2)
 List.init(l)
 
 List.length(l)
+
+List.sumViaFoldLeft(l)
+
+List.productViaFoldLeft(List(0.0, 1.0, 2.0))
+List.productViaFoldLeft(List(1.0, 2.0, 3.0))
+
+List.lengthViaFoldLeft(l)
