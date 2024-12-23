@@ -30,3 +30,5 @@ List.dropWhile(l, x => x < 2)
 List.dropWhile(l, x => x < -2)
 
 List.init(l)
+
+List.length(l)
