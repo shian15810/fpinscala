@@ -15,3 +15,5 @@ val result = List(1, 2, 3, 4, 5) match
   case Cons(x, Cons(y, Cons(3, Cons(4, _)))) => x + y // 1 + 2 = 3
   case Cons(h, t)                            => h + sum(t)
   case _                                     => 101
+
+List.tail(List(0, 1, 2))
