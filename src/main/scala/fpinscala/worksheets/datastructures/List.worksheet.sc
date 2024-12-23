@@ -16,4 +16,7 @@ val result = List(1, 2, 3, 4, 5) match
   case Cons(h, t)                            => h + sum(t)
   case _                                     => 101
 
-List.tail(List(0, 1, 2))
+val l = List(0, 1, 2)
+ // Scala gives a hint here via a warning, so let's disable that
+List.tail(l)
+List.setHead(l, 3)

@@ -51,7 +51,9 @@ object List: // `List` companion object. Contains functions for creating and wor
     case Nil => sys.error("tail of empty list")
     case Cons(_, t) => t
 
-  def setHead[A](l: List[A], h: A): List[A] = ???
+  def setHead[A](l: List[A], h: A): List[A] = l match
+    case Nil => sys.error("setHead on empty list")
+    case Cons(_, t) => Cons(h, t)
 
   def drop[A](l: List[A], n: Int): List[A] = ???
 
