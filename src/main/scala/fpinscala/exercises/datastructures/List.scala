@@ -36,7 +36,7 @@ object List: // `List` companion object. Contains functions for creating and wor
       case Nil => a2
       case Cons(h,t) => Cons(h, append(t, a2))
 
-  def foldRight[A,B](as: List[A], acc: B, f: (A, B) => B): B = // Utility functions
+  def foldRight[A, B](as: List[A], acc: B, f: (A, B) => B): B = // Utility functions
     as match
       case Nil => acc
       case Cons(x, xs) => f(x, foldRight(xs, acc, f))
@@ -71,7 +71,7 @@ object List: // `List` companion object. Contains functions for creating and wor
   def length[A](l: List[A]): Int = foldRight(l, 0, (_, b) => b + 1)
 
   @annotation.tailrec
-  def foldLeft[A,B](l: List[A], acc: B, f: (B, A) => B): B = l match
+  def foldLeft[A, B](l: List[A], acc: B, f: (B, A) => B): B = l match
     case Nil => acc
     case Cons(h, t) => foldLeft(t, f(acc, h), f)
 
@@ -84,6 +84,9 @@ object List: // `List` companion object. Contains functions for creating and wor
   def reverse[A](l: List[A]): List[A] =
     foldLeft(l, List[A](), (b, a) => Cons(a, b))
 
+  def foldRightViaFoldLeft[A, B](l: List[A], acc: B, f: (A, B) => B): B =
+    foldLeft(reverse(l), acc, (b, a) => f(a, b))
+
   def appendViaFoldRight[A](l: List[A], r: List[A]): List[A] = ???
 
   def concat[A](l: List[List[A]]): List[A] = ???
@@ -92,11 +95,11 @@ object List: // `List` companion object. Contains functions for creating and wor
 
   def doubleToString(l: List[Double]): List[String] = ???
 
-  def map[A,B](l: List[A], f: A => B): List[B] = ???
+  def map[A, B](l: List[A], f: A => B): List[B] = ???
 
   def filter[A](as: List[A], f: A => Boolean): List[A] = ???
 
-  def flatMap[A,B](as: List[A], f: A => List[B]): List[B] = ???
+  def flatMap[A, B](as: List[A], f: A => List[B]): List[B] = ???
 
   def filterViaFlatMap[A](as: List[A], f: A => Boolean): List[A] = ???
 
