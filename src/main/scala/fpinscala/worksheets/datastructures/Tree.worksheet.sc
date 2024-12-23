@@ -14,3 +14,5 @@ val t = Branch(
 t.maximum
 
 t.depth
+
+t.map(_ + 1)
