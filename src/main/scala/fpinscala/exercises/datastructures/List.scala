@@ -56,16 +56,17 @@ object List: // `List` companion object. Contains functions for creating and wor
     case Cons(_, t) => Cons(h, t)
 
   def drop[A](l: List[A], n: Int): List[A] = l match
-    case Nil => Nil
-    case Cons(_, t) => if n > 0 then drop(t, n - 1) else l
+    case Cons(_, t) if n > 0 => drop(t, n - 1)
+    case _ => l
 
   def dropWhile[A](l: List[A], f: A => Boolean): List[A] = l match
-    case Nil => Nil
-    case Cons(h, t) => if f(h) then dropWhile(t, f) else l
+    case Cons(h, t) if f(h) => dropWhile(t, f)
+    case _ => l
 
   def init[A](l: List[A]): List[A] = l match
     case Nil => sys.error("init of empty list")
-    case Cons(h, t) => if t == Nil then Nil else Cons(h, init(t))
+    case Cons(_, Nil) => Nil
+    case Cons(h, t) => Cons(h, init(t))
 
   def length[A](l: List[A]): Int = ???
 
