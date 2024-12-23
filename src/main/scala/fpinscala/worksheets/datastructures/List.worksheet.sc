@@ -51,3 +51,5 @@ List.incrementEach(l)
 List.doubleToString(List(0.0, 1.0, 2.0))
 
 List.map(l, x => x + 1)
+
+List.filter(l, x => x % 2 == 0)
