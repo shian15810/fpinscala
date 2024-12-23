@@ -24,3 +24,6 @@ List.setHead(l, 3)
 
 List.drop(l, 2)
 List.drop(l, -2)
+
+List.dropWhile(l, x => x < 2)
+List.dropWhile(l, x => x < -2)
