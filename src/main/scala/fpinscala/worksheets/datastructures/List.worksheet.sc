@@ -45,3 +45,5 @@ List.reverse(l)
 List.appendViaFoldRight(l, List(3))
 
 List.concat(List(l, List(3, 4, 5)))
+
+List.incrementEach(l)
