@@ -17,6 +17,10 @@ val result = List(1, 2, 3, 4, 5) match
   case _                                     => 101
 
 val l = List(0, 1, 2)
- // Scala gives a hint here via a warning, so let's disable that
+
 List.tail(l)
+
 List.setHead(l, 3)
+
+List.drop(l, 2)
+List.drop(l, -2)
