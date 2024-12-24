@@ -33,3 +33,6 @@ Option.map2(Option.Some(2), Option.Some(2))(_ + _)
 Option.map2(some, some)(_ * _)
 Option.map2(Option.Some(1), Option.Some(1))(_ * _)
 Option.map2(Option.Some(2), Option.Some(2))(_ * _)
+
+Option.sequence(some :: Option.Some(1) :: Option.Some(2) :: Nil)
+Option.sequence(none :: Option.Some(1) :: Option.Some(2) :: Nil)
