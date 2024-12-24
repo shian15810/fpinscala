@@ -36,3 +36,8 @@ Option.map2(Option.Some(2), Option.Some(2))(_ * _)
 
 Option.sequence(some :: Option.Some(1) :: Option.Some(2) :: Nil)
 Option.sequence(none :: Option.Some(1) :: Option.Some(2) :: Nil)
+
+Option.traverse(0 :: 1 :: 2 :: Nil)(a => if a == 0 then Option.None else Option.Some(a))
+Option.traverse(0 :: 1 :: 2 :: Nil)(a => if a == 1 then Option.None else Option.Some(a))
+Option.traverse(0 :: 1 :: 2 :: Nil)(a => if a == 2 then Option.None else Option.Some(a))
+Option.traverse(0 :: 1 :: 2 :: Nil)(a => if a == 3 then Option.None else Option.Some(a))
