@@ -17,3 +17,11 @@ right.map2(Either.Right(2))(_ + _)
 
 left.map2(Either.Right(2))(_ * _)
 right.map2(Either.Right(2))(_ * _)
+
+Either.traverse(0 :: 1 :: 2 :: Nil)(a => if a == 0 then left else Either.Right(a))
+Either.traverse(0 :: 1 :: 2 :: Nil)(a => if a == 1 then left else Either.Right(a))
+Either.traverse(0 :: 1 :: 2 :: Nil)(a => if a == 2 then left else Either.Right(a))
+Either.traverse(0 :: 1 :: 2 :: Nil)(a => if a == 3 then left else Either.Right(a))
+
+Either.sequence(left :: Either.Right(1) :: Either.Right(2) :: Nil)
+Either.sequence(right :: Either.Right(1) :: Either.Right(2) :: Nil)
