@@ -25,3 +25,11 @@ Option.mean(List(0, 1, 2, 3, 4))
 
 Option.variance(List())
 Option.variance(List(0, 1, 2, 3, 4))
+
+Option.map2(some, some)(_ + _)
+Option.map2(Option.Some(1), Option.Some(1))(_ + _)
+Option.map2(Option.Some(2), Option.Some(2))(_ + _)
+
+Option.map2(some, some)(_ * _)
+Option.map2(Option.Some(1), Option.Some(1))(_ * _)
+Option.map2(Option.Some(2), Option.Some(2))(_ * _)
