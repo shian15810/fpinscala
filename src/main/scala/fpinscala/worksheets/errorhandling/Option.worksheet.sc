@@ -19,3 +19,9 @@ some.filter(_ == 0)
 some.filter(_ == 1)
 none.filter(_ == 0)
 none.filter(_ == 1)
+
+Option.mean(List())
+Option.mean(List(0, 1, 2, 3, 4))
+
+Option.variance(List())
+Option.variance(List(0, 1, 2, 3, 4))
