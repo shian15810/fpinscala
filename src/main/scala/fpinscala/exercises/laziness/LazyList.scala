@@ -1,5 +1,7 @@
 package fpinscala.exercises.laziness
 
+import LazyList.*
+
 enum LazyList[+A]:
   case Empty
   case Cons(h: () => A, t: () => LazyList[A])
@@ -21,9 +23,14 @@ enum LazyList[+A]:
     case Empty => None
     case Cons(h, t) => if (f(h())) Some(h()) else t().find(f)
 
-  def take(n: Int): LazyList[A] = ???
+  def take(n: Int): LazyList[A] = this match
+    case Cons(_, _) if n <= 0 => empty
+    case Cons(h, t) if n > 0 => cons(h(), t().take(n - 1))
+    case z => z
 
-  def drop(n: Int): LazyList[A] = ???
+  def drop(n: Int): LazyList[A] = this match
+    case Cons(_, t) if n > 0 => t().drop(n - 1)
+    case z => z
 
   def takeWhile(p: A => Boolean): LazyList[A] = ???
 

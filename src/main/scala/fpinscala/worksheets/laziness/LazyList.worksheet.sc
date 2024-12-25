@@ -31,3 +31,18 @@ maybeTwice2(true, { println("hi"); 1 + 41 })
 
 val ll = LazyList(0, 1, 2)
 ll.toList
+
+ll.take(-1).toList
+ll.take(0).toList
+ll.take(1).toList
+ll.take(2).toList
+ll.take(3).toList
+ll.take(4).toList
+
+
+ll.drop(-1).toList
+ll.drop(0).toList
+ll.drop(1).toList
+ll.drop(2).toList
+ll.drop(3).toList
+ll.drop(4).toList
