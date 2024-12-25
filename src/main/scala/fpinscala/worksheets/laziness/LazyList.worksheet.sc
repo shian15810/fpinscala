@@ -88,3 +88,10 @@ lazy val fibs: LazyList[Int] =
 
 fibs.take(10).toList
 LazyList.fibs.take(10).toList
+LazyList.fibsViaUnfold.take(10).toList
+
+LazyList.fromViaUnfold(10).take(10).toList
+
+LazyList.continuallyViaUnfold(5).take(10).toList
+
+LazyList.onesViaUnfold.take(10).toList

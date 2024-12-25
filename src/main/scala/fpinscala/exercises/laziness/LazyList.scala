@@ -85,24 +85,25 @@ object LazyList:
     lazy val ns: LazyList[Int] = cons(n, from(n + 1))
     ns
 
+  def fib(n: Int) =
+    def loop(m: Int, curr: Int, next: Int): Int =
+      if m == n then curr
+      else loop(m + 1, next, curr + next)
+    loop(0, 0, 1)
+
   lazy val fibs: LazyList[Int] =
-    def go(n: Int) =
-      def loop(m: Int, curr: Int, next: Int): Int =
-        if m == n then curr
-        else loop(m + 1, next, curr + next)
-      loop(0, 0, 1)
-    lazy val fib = from(0).map(go)
-    fib
+    lazy val s = from(0).map(fib)
+    s
 
   def unfold[A, S](state: S)(f: S => Option[(A, S)]): LazyList[A] =
     f(state) match
       case None => empty
       case Some(a, s) => cons(a, unfold(s)(f))
 
-  lazy val fibsViaUnfold: LazyList[Int] = ???
+  lazy val fibsViaUnfold: LazyList[Int] = unfold(0)(s => Some((fib(s), s + 1)))
 
-  def fromViaUnfold(n: Int): LazyList[Int] = ???
+  def fromViaUnfold(n: Int): LazyList[Int] = unfold(n)(s => Some(s, s + 1))
 
-  def continuallyViaUnfold[A](a: A): LazyList[A] = ???
+  def continuallyViaUnfold[A](a: A): LazyList[A] = unfold(())(_ => Some((a), ()))
 
-  lazy val onesViaUnfold: LazyList[Int] = ???
+  lazy val onesViaUnfold: LazyList[Int] = unfold(())(_ => Some(1, ()))
