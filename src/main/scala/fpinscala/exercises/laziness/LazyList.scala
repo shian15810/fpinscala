@@ -85,7 +85,8 @@ enum LazyList[+A]:
       case (Empty, Cons(h2, t2)) => Some((None, Some(h2())), (Empty, t2()))
       case (Cons(h1, t1), Cons(h2, t2)) => Some((Some(h1()), Some(h2())), (t1(), t2()))
 
-  def startsWith[B](s: LazyList[B]): Boolean = ???
+  def startsWith[B](s: LazyList[B]): Boolean =
+    zipAll(s).takeWhile(a => a._2.isDefined).forAll((a1, a2) => a1 == a2)
 
 
 object LazyList:
