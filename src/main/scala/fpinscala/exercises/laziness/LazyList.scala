@@ -77,7 +77,9 @@ object LazyList:
 
   val ones: LazyList[Int] = LazyList.cons(1, ones)
 
-  def continually[A](a: A): LazyList[A] = ???
+  def continually[A](a: A): LazyList[A] =
+    lazy val as: LazyList[A] = cons(a, as)
+    as
 
   def from(n: Int): LazyList[Int] = ???
 

@@ -52,3 +52,13 @@ ll.takeWhile(n => n < 1).toList
 ll.takeWhile(n => n < 2).toList
 ll.takeWhile(n => n < 3).toList
 ll.takeWhile(n => n < 4).toList
+
+val ones: LazyList[Int] = LazyList.cons(1, ones)
+
+ones.take(5).toList
+ones.exists(_ % 2 != 0)
+ones.map(_ + 1).exists(_ % 2 == 0)
+ones.takeWhile(_ == 1).take(5).toList
+ones.forAll(_ != 1)
+
+LazyList.continually(0).take(5).toList
