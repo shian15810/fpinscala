@@ -64,3 +64,27 @@ ones.forAll(_ != 1)
 LazyList.continually(0).take(5).toList
 
 LazyList.from(0).take(5).toList
+
+def fib(n: Int): Int =
+  def go(m: Int, curr: Int, next: Int): Int =
+    if m == n then curr
+    else go(m + 1, next, curr + next)
+  go(0, 0, 1)
+
+fib(0)
+fib(1)
+fib(2)
+fib(3)
+fib(4)
+fib(5)
+fib(6)
+fib(7)
+fib(8)
+fib(9)
+
+lazy val fibs: LazyList[Int] =
+  lazy val num = LazyList.from(0).map(fib)
+  num
+
+fibs.take(10).toList
+LazyList.fibs.take(10).toList
