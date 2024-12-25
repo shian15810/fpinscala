@@ -36,6 +36,9 @@ enum LazyList[+A]:
     case Cons(h, t) if p(h()) => cons(h(), t().takeWhile(p))
     case _ => empty
 
+  def takeWhileViaFoldRight(p: A => Boolean): LazyList[A] =
+    foldRight(empty)((a, b) => if p(a) then cons(a, b) else b)
+
   def forAll(p: A => Boolean): Boolean =
     foldRight(true)((a, b) => p(a) && b)
 
