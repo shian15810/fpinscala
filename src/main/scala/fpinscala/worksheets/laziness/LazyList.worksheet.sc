@@ -39,10 +39,16 @@ ll.take(2).toList
 ll.take(3).toList
 ll.take(4).toList
 
-
 ll.drop(-1).toList
 ll.drop(0).toList
 ll.drop(1).toList
 ll.drop(2).toList
 ll.drop(3).toList
 ll.drop(4).toList
+
+ll.takeWhile(n => n < -1).toList
+ll.takeWhile(n => n < 0).toList
+ll.takeWhile(n => n < 1).toList
+ll.takeWhile(n => n < 2).toList
+ll.takeWhile(n => n < 3).toList
+ll.takeWhile(n => n < 4).toList
