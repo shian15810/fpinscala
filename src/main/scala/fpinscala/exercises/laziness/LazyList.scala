@@ -94,7 +94,10 @@ object LazyList:
     lazy val fib = from(0).map(go)
     fib
 
-  def unfold[A, S](state: S)(f: S => Option[(A, S)]): LazyList[A] = ???
+  def unfold[A, S](state: S)(f: S => Option[(A, S)]): LazyList[A] =
+    f(state) match
+      case None => empty
+      case Some(a, s) => cons(a, unfold(s)(f))
 
   lazy val fibsViaUnfold: LazyList[Int] = ???
 
