@@ -62,3 +62,5 @@ ones.takeWhile(_ == 1).take(5).toList
 ones.forAll(_ != 1)
 
 LazyList.continually(0).take(5).toList
+
+LazyList.from(0).take(5).toList

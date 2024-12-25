@@ -81,7 +81,9 @@ object LazyList:
     lazy val as: LazyList[A] = cons(a, as)
     as
 
-  def from(n: Int): LazyList[Int] = ???
+  def from(n: Int): LazyList[Int] =
+    lazy val ns: LazyList[Int] = cons(n, from(n + 1))
+    ns
 
   lazy val fibs: LazyList[Int] = ???
 
