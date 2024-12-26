@@ -60,7 +60,10 @@ object RNG:
       (rns :+ rn1) -> rng1
     )
 
-  def map2[A, B, C](ra: Rand[A], rb: Rand[B])(f: (A, B) => C): Rand[C] = ???
+  def map2[A, B, C](ra: Rand[A], rb: Rand[B])(f: (A, B) => C): Rand[C] = rng1 =>
+    val rn1 -> rng2 = ra(rng1)
+    val rn2 -> rng3 = rb(rng2)
+    f(rn1, rn2) -> rng3
 
   def sequence[A](rs: List[Rand[A]]): Rand[List[A]] = ???
 
