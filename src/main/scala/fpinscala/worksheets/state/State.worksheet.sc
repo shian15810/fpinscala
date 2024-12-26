@@ -18,3 +18,5 @@ RNG.double3(rng)
 
 (0 until 10).map(_ + 1)
 RNG.ints(10)(rng)
+
+RNG.sequence(List(RNG.intDouble, RNG.doubleInt))(rng)
