@@ -15,3 +15,6 @@ RNG.double(rng)
 RNG.intDouble(rng)
 RNG.doubleInt(rng)
 RNG.double3(rng)
+
+(0 until 10).map(_ + 1)
+RNG.ints(10)(rng)

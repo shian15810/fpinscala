@@ -50,7 +50,12 @@ object RNG:
     val rn3 -> rng3 = double(rng2)
     (rn1, rn2, rn3) -> rng3
 
-  def ints(count: Int)(rng: RNG): (List[Int], RNG) = ???
+  def ints(count: Int)(rng: RNG): (List[Int], RNG) =
+    (0 until count).foldRight(List[Int]() -> rng)((_, acc) =>
+      val (rns, rng) = acc
+      val rn1 -> rng1 = rng.nextInt
+      (rns :+ rn1) -> rng1
+    )
 
   def map2[A, B, C](ra: Rand[A], rb: Rand[B])(f: (A, B) => C): Rand[C] = ???
 
