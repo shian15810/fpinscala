@@ -11,3 +11,7 @@ val (n2, rng2) = rng1.nextInt
 RNG.nonNegativeInt(rng)
 
 RNG.double(rng)
+
+RNG.intDouble(rng)
+RNG.doubleInt(rng)
+RNG.double3(rng)

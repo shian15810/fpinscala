@@ -34,11 +34,21 @@ object RNG:
     val rn -> rng2 = RNG.nonNegativeInt(rng)
     1 / rn.toDouble -> rng2
 
-  def intDouble(rng: RNG): ((Int,Double), RNG) = ???
+  def intDouble(rng: RNG): ((Int,Double), RNG) =
+    val rn1 -> rng1 = rng.nextInt
+    val rn2 -> rng2 = double(rng1)
+    rn1 -> rn2 -> rng2
 
-  def doubleInt(rng: RNG): ((Double,Int), RNG) = ???
+  def doubleInt(rng: RNG): ((Double,Int), RNG) =
+    val rn1 -> rng1 = rng.nextInt
+    val rn2 -> rng2 = double(rng)
+    rn2 -> rn1 -> rng2
 
-  def double3(rng: RNG): ((Double,Double,Double), RNG) = ???
+  def double3(rng: RNG): ((Double,Double,Double), RNG) =
+    val rn1 -> rng1 = double(rng)
+    val rn2 -> rng2 = double(rng1)
+    val rn3 -> rng3 = double(rng2)
+    (rn1, rn2, rn3) -> rng3
 
   def ints(count: Int)(rng: RNG): (List[Int], RNG) = ???
 
