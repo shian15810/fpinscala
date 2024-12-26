@@ -95,3 +95,5 @@ LazyList.fromViaUnfold(10).take(10).toList
 LazyList.continuallyViaUnfold(5).take(10).toList
 
 LazyList.onesViaUnfold.take(10).toList
+
+ll.tails.toList

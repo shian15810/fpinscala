@@ -88,6 +88,15 @@ enum LazyList[+A]:
   def startsWith[B](s: LazyList[B]): Boolean =
     zipAll(s).takeWhile(a => a._2.isDefined).forAll((a1, a2) => a1 == a2)
 
+  def tails: LazyList[LazyList[A]] =
+    unfold(this):
+      case Cons(h, t) => Some(Cons(h, t), t())
+      case _ => None
+    .append(LazyList(Empty))
+
+  def hasSubsequence[A](l: LazyList[A]): Boolean =
+    tails.exists(_.startsWith(l))
+
 
 object LazyList:
   def cons[A](hd: => A, tl: => LazyList[A]): LazyList[A] =
