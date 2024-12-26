@@ -26,7 +26,9 @@ object RNG:
       val (a, rng2) = s(rng)
       (f(a), rng2)
 
-  def nonNegativeInt(rng: RNG): (Int, RNG) = ???
+  def nonNegativeInt(rng: RNG): (Int, RNG) =
+    val (i2, rng2) = rng.nextInt
+    if i2 < 0 then -(i2 + 1) -> rng2 else i2 -> rng2
 
   def double(rng: RNG): (Double, RNG) = ???
 
