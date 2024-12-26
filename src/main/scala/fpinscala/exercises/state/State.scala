@@ -31,8 +31,11 @@ object RNG:
     if rn < 0 then -(rn + 1) -> rng2 else rn -> rng2
 
   def double(rng: RNG): (Double, RNG) =
-    val rn -> rng2 = RNG.nonNegativeInt(rng)
-    1 / rn.toDouble -> rng2
+    val rn -> rng2 = nonNegativeInt(rng)
+    rn / (Int.MaxValue.toDouble + 1) -> rng2
+
+  def doubleViaMap: Rand[Double] =
+    map(nonNegativeInt)(a => a / (Int.MaxValue.toDouble + 1))
 
   def intDouble(rng: RNG): ((Int,Double), RNG) =
     val rn1 -> rng1 = rng.nextInt
