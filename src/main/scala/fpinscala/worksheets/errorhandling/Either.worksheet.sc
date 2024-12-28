@@ -1,6 +1,6 @@
 import fpinscala.exercises.errorhandling.Either
 
-val left: Either[Int, Int] = Either.Left(0)
+val left: Either[Int, Int]  = Either.Left(0)
 val right: Either[Int, Int] = Either.Right(1)
 
 left.map(_ + 1)
