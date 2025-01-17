@@ -10,11 +10,11 @@ object Monoid:
 
   val stringMonoid: Monoid[String] = new:
     def combine(a1: String, a2: String) = a1 + a2
-    val empty = ""
+    val empty                           = ""
 
   def listMonoid[A]: Monoid[List[A]] = new:
     def combine(a1: List[A], a2: List[A]) = a1 ++ a2
-    val empty = Nil
+    val empty                             = Nil
 
   lazy val intAddition: Monoid[Int] = ???
 
@@ -28,38 +28,30 @@ object Monoid:
 
   def dual[A](m: Monoid[A]): Monoid[A] = new:
     def combine(x: A, y: A): A = m.combine(y, x)
-    val empty = m.empty
+    val empty                  = m.empty
 
   def endoMonoid[A]: Monoid[A => A] = ???
 
-  import fpinscala.exercises.testing.{Prop, Gen}
+  import fpinscala.exercises.testing.{Gen, Prop}
   // import Gen.`**`
 
   def monoidLaws[A](m: Monoid[A], gen: Gen[A]): Prop = ???
 
-  def combineAll[A](as: List[A], m: Monoid[A]): A =
-    ???
+  def combineAll[A](as: List[A], m: Monoid[A]): A = ???
 
-  def foldMap[A, B](as: List[A], m: Monoid[B])(f: A => B): B =
-    ???
+  def foldMap[A, B](as: List[A], m: Monoid[B])(f: A => B): B = ???
 
-  def foldRight[A, B](as: List[A])(acc: B)(f: (A, B) => B): B =
-    ???
+  def foldRight[A, B](as: List[A])(acc: B)(f: (A, B) => B): B = ???
 
-  def foldLeft[A, B](as: List[A])(acc: B)(f: (B, A) => B): B =
-    ???
+  def foldLeft[A, B](as: List[A])(acc: B)(f: (B, A) => B): B = ???
 
-  def foldMapV[A, B](as: IndexedSeq[A], m: Monoid[B])(f: A => B): B =
-    ???
+  def foldMapV[A, B](as: IndexedSeq[A], m: Monoid[B])(f: A => B): B = ???
 
-  def par[A](m: Monoid[A]): Monoid[Par[A]] = 
-    ???
+  def par[A](m: Monoid[A]): Monoid[Par[A]] = ???
 
-  def parFoldMap[A,B](v: IndexedSeq[A], m: Monoid[B])(f: A => B): Par[B] = 
-    ???
+  def parFoldMap[A, B](v: IndexedSeq[A], m: Monoid[B])(f: A => B): Par[B] = ???
 
-  def ordered(ints: IndexedSeq[Int]): Boolean =
-    ???
+  def ordered(ints: IndexedSeq[Int]): Boolean = ???
 
   enum WC:
     case Stub(chars: String)
@@ -69,19 +61,19 @@ object Monoid:
 
   def count(s: String): Int = ???
 
-  given productMonoid[A, B](using ma: Monoid[A], mb: Monoid[B]): Monoid[(A, B)] with
+  given productMonoid[A, B](using ma: Monoid[A], mb: Monoid[B]): Monoid[(A, B)]
+  with
     def combine(x: (A, B), y: (A, B)) = ???
-    val empty = ???
+    val empty                         = ???
 
   given functionMonoid[A, B](using mb: Monoid[B]): Monoid[A => B] with
     def combine(f: A => B, g: A => B) = ???
-    val empty: A => B = a => ???
+    val empty: A => B                 = a => ???
 
   given mapMergeMonoid[K, V](using mv: Monoid[V]): Monoid[Map[K, V]] with
     def combine(a: Map[K, V], b: Map[K, V]) = ???
-    val empty = ???
+    val empty                               = ???
 
-  def bag[A](as: IndexedSeq[A]): Map[A, Int] =
-    ???
+  def bag[A](as: IndexedSeq[A]): Map[A, Int] = ???
 
 end Monoid
