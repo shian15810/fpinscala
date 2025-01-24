@@ -67,8 +67,7 @@ LazyList.from(0).take(5).toList
 
 def fib(n: Int): Int =
   def go(m: Int, curr: Int, next: Int): Int =
-    if m == n then curr
-    else go(m + 1, next, curr + next)
+    if m == n then curr else go(m + 1, next, curr + next)
   go(0, 0, 1)
 
 fib(0)

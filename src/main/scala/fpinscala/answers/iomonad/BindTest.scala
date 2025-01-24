@@ -9,23 +9,20 @@ object BindTest extends App:
     println(s"${(stop - start) / 1000.0} seconds")
 
   val N = 100000
-  def go[F[_]](unit: F[Unit])(f: F[Int] => Int)(using F: Monad[F]): Unit =
-    f((0 to N).map(i => unit.map(_ => i)).foldLeft(F.unit(0)): (f1, f2) =>
+  def go[F[_]](unit: F[Unit])(f: F[Int] => Int)(using F: Monad[F]): Unit = f(
+    (0 to N).map(i => unit.map(_ => i)).foldLeft(F.unit(0)): (f1, f2) =>
       for
         acc <- f1
-        i <- f2
+        i   <- f2
       yield
         // if (i == N) println("result: " + (acc+i))
-        (acc + i)
-    )
+        acc + i)
 
   import fpinscala.answers.parallelism.Nonblocking.*
 
   given parMonad: Monad[Par] with
     def unit[A](a: => A) = Par.unit(a)
-    extension [A](fa: Par[A])
-      def flatMap[B](f: A => Par[B]) =
-        Par.flatMap(fa)(f)
+    extension [A](fa: Par[A]) def flatMap[B](f: A => Par[B]) = Par.flatMap(fa)(f)
 
   val pool = java.util.concurrent.Executors.newFixedThreadPool(4)
 
@@ -39,3 +36,4 @@ object BindTest extends App:
 
   // parMonad.unit(println("woot")).forever.run(pool)
   pool.shutdown()
+end BindTest

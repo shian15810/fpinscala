@@ -13,7 +13,7 @@ import fpinscala.exercises.monoids.Monoid.*
 
 class FoldableSuite extends PropSuite:
   import Foldable.given
-  given Monoid[Int] = intAddition
+  given Monoid[Int]    = intAddition
   given Monoid[String] = stringMonoid
 
   test("Foldable[List]")(genStringList): list =>
@@ -39,8 +39,8 @@ class FoldableSuite extends PropSuite:
 
   test("Foldable[Tree]")(genIntTree): tree =>
     given Monoid[Int] = new:
-      def combine(a1: Int, a2: Int): Int = a1 max a2
-      val empty: Int = Int.MinValue
+      def combine(a1: Int, a2: Int): Int = a1.max(a2)
+      val empty: Int                     = Int.MinValue
 
     val expected = tree.maximum
     assertEquals(tree.foldRight(Int.MinValue)(_ max _), expected)
@@ -78,3 +78,4 @@ class FoldableSuite extends PropSuite:
   private def treeToList[A](t: Tree[A]): List[A] = t match
     case Leaf(v)      => List(v)
     case Branch(l, r) => treeToList(l) ++ treeToList(r)
+end FoldableSuite
