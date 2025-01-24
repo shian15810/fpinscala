@@ -9,15 +9,15 @@ object FirstExample:
       cup
 
   class CreditCard:
-    def charge(price: Double): Unit =
-      println("charging " + price)
+    def charge(price: Double): Unit = println("charging " + price)
 
   class Coffee:
     val price: Double = 2.0
 
-  val cc = CreditCard()
+  val cc   = CreditCard()
   val cafe = Cafe()
-  val cup = cafe.buyCoffee(cc)
+  val cup  = cafe.buyCoffee(cc)
+end FirstExample
 
 object SecondExample:
 
@@ -39,10 +39,11 @@ object SecondExample:
   class Coffee:
     val price: Double = 2.0
 
-  val cc = CreditCard()
-  val p = SimulatedPayments()
+  val cc   = CreditCard()
+  val p    = SimulatedPayments()
   val cafe = Cafe()
-  val cup = cafe.buyCoffee(cc, p)
+  val cup  = cafe.buyCoffee(cc, p)
+end SecondExample
 
 object ThirdExample:
 
@@ -53,20 +54,19 @@ object ThirdExample:
 
     def buyCoffees(cc: CreditCard, n: Int): (List[Coffee], Charge) =
       val purchases: List[(Coffee, Charge)] = List.fill(n)(buyCoffee(cc))
-      val (coffees, charges) = purchases.unzip
+      val (coffees, charges)                = purchases.unzip
       (coffees, charges.reduce((c1, c2) => c1.combine(c2)))
 
   class CreditCard
 
   case class Charge(cc: CreditCard, amount: Double):
     def combine(other: Charge): Charge =
-      if cc == other.cc then
-        Charge(cc, amount + other.amount)
-      else
-        throw new Exception("Can't combine charges to different cards")
+      if cc == other.cc then Charge(cc, amount + other.amount)
+      else throw new Exception("Can't combine charges to different cards")
 
   class Coffee:
     val price: Double = 2.0
 
-  def coalesce(charges: List[Charge]): List[Charge] =
-    charges.groupBy(_.cc).values.map(_.reduce(_.combine(_))).toList
+  def coalesce(charges: List[Charge]): List[Charge] = charges.groupBy(_.cc)
+    .values.map(_.reduce(_.combine(_))).toList
+end ThirdExample

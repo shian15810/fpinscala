@@ -21,21 +21,28 @@ class TreeSuite extends PropSuite:
     assertEquals(tree.size, toScalaList(tree).length)
 
   test("Tree.map")(genIntTree): tree =>
-    assertEquals(toScalaList(tree.map(_.toString)), toScalaList(tree).map(_.map(_.toString)))
+    assertEquals(
+      toScalaList(tree.map(_.toString)),
+      toScalaList(tree).map(_.map(_.toString)))
 
   test("Tree.fold")(genIntTree): tree =>
-    assertEquals(tree.fold(_.toString, _ + _), toScalaList(tree).flatMap(_.map(_.toString)).mkString)
+    assertEquals(
+      tree.fold(_.toString, _ + _),
+      toScalaList(tree).flatMap(_.map(_.toString)).mkString)
 
   test("Tree.sizeViaFold")(genIntTree): tree =>
     assertEquals(tree.sizeViaFold, toScalaList(tree).length)
 
   test("Tree.depthViaFold")(genIntTree): tree =>
     tree match
-      case Leaf(_)      => assertEquals(tree.depthViaFold, 0)
-      case Branch(l, r) => assertEquals(tree.depthViaFold, 1 + l.depthViaFold.max(r.depthViaFold))
+      case Leaf(_) => assertEquals(tree.depthViaFold, 0)
+      case Branch(l, r) =>
+        assertEquals(tree.depthViaFold, 1 + l.depthViaFold.max(r.depthViaFold))
 
   test("Tree.mapViaFold")(genIntTree): tree =>
-    assertEquals(toScalaList(tree.mapViaFold(_.toString)), toScalaList(tree).map(_.map(_.toString)))
+    assertEquals(
+      toScalaList(tree.mapViaFold(_.toString)),
+      toScalaList(tree).map(_.map(_.toString)))
 
   test("size(tree)")(genIntTree): tree =>
     assertEquals(Tree.size(tree), toScalaList(tree).length)
@@ -53,17 +60,17 @@ class TreeSuite extends PropSuite:
   private def toScalaList[A](t: Tree[A]): SList[Option[A]] = t match
     case Leaf(v)      => SList(Some(v))
     case Branch(l, r) => (Option.empty[A] +: toScalaList(l)) ++ toScalaList(r)
+end TreeSuite
 
 object TreeSuite:
   val genIntTree: Gen[Tree[Int]] = genTree(Gen.int)
 
   private def genTree[A](g: Gen[A]): Gen[Tree[A]] =
-    def loop(): Gen[Tree[A]] =
-      Gen.boolean.flatMap:
-        if _ then g.map(n => Leaf(n))
-        else
-          for
-            left <- loop()
-            right <- loop()
-          yield Branch(left, right)
+    def loop(): Gen[Tree[A]] = Gen.boolean.flatMap:
+      if _ then g.map(n => Leaf(n))
+      else
+        for
+          left  <- loop()
+          right <- loop()
+        yield Branch(left, right)
     loop()

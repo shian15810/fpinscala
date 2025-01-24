@@ -14,33 +14,32 @@ object JSON:
 
     def token(s: String) = string(s).token
 
-    def array: Parser[JSON] = (
-      token("[") *> value.sep(token(",")).map(vs => JArray(vs.toIndexedSeq)) <* token("]")
-    ).scope("array")
+    def array: Parser[JSON] =
+      (token("[") *> value.sep(token(",")).map(vs => JArray(vs.toIndexedSeq)) <*
+        token("]")).scope("array")
 
-    def obj: Parser[JSON] = (
-      token("{") *> keyval.sep(token(",")).map(kvs => JObject(kvs.toMap)) <* token("}")
-    ).scope("object")
+    def obj: Parser[JSON] =
+      (token("{") *> keyval.sep(token(",")).map(kvs => JObject(kvs.toMap)) <*
+        token("}")).scope("object")
 
     def keyval: Parser[(String, JSON)] = escapedQuoted ** (token(":") *> value)
 
-    def lit: Parser[JSON] = (
-      token("null").as(JNull) |
-      double.map(JNumber(_)) |
-      escapedQuoted.map(JString(_)) |
-      token("true").as(JBool(true)) |
-      token("false").as(JBool(false))
-    ).scope("literal")
+    def lit: Parser[JSON] =
+      (token("null").as(JNull) | double.map(JNumber(_)) |
+        escapedQuoted.map(JString(_)) | token("true").as(JBool(true)) |
+        token("false").as(JBool(false))).scope("literal")
 
     def value: Parser[JSON] = lit | obj | array
 
     (whitespace *> (obj | array)).root
+  end jsonParser
+end JSON
 
-/**
- * JSON parsing example.
- */
-@main def jsonExample =
-  val jsonTxt = """
+/** JSON parsing example. */
+@main
+def jsonExample =
+  val jsonTxt =
+    """
 {
   "Company name" : "Microsoft Corporation",
   "Ticker"  : "MSFT",
@@ -51,13 +50,15 @@ object JSON:
 }
 """
 
-  val malformedJson1 = """
+  val malformedJson1 =
+    """
 {
   "Company name" ; "Microsoft Corporation"
 }
 """
 
-  val malformedJson2 = """
+  val malformedJson2 =
+    """
 [
   [ "HPQ", "IBM",
   "YHOO", "DELL" ++
@@ -66,8 +67,7 @@ object JSON:
 ]
 """
 
-  def printResult[E](e: Either[E,JSON]) =
-    e.fold(println, println)
+  def printResult[E](e: Either[E, JSON]) = e.fold(println, println)
 
   val parser = JSON.jsonParser(Reference)
   printResult(parser.run(jsonTxt))
@@ -75,3 +75,4 @@ object JSON:
   printResult(parser.run(malformedJson1))
   println("--")
   printResult(parser.run(malformedJson2))
+end jsonExample

@@ -10,20 +10,18 @@ import fpinscala.exercises.errorhandling.Option.*
 import scala.{Either as SEither, Left as SLeft, None as SNone, Option as SOption, Right as SRight, Some as SSome}
 
 class OptionSuite extends PropSuite:
-  private val genIntOption: Gen[Option[Int]] =
-    Gen.union(Gen.unit(None), Gen.int.map(Some(_)))
+  private val genIntOption: Gen[Option[Int]] = Gen
+    .union(Gen.unit(None), Gen.int.map(Some(_)))
 
-  private val genNoneSeq: Gen[List[Option[Int]]] =
-    Gen.unit(List(None))
+  private val genNoneSeq: Gen[List[Option[Int]]] = Gen.unit(List(None))
 
-  private val genListWithNone: Gen[List[Option[Int]]] =
-    genList(genIntOption)
+  private val genListWithNone: Gen[List[Option[Int]]] = genList(genIntOption)
 
   private val genListWithoutNone: Gen[List[Option[Int]]] =
     genList(Gen.int.map(Some(_)))
 
-  private val genOptionSeq: Gen[List[Option[Int]]] =
-    Gen.union(genNoneSeq, Gen.union(genListWithNone, genListWithoutNone))
+  private val genOptionSeq: Gen[List[Option[Int]]] = Gen
+    .union(genNoneSeq, Gen.union(genListWithNone, genListWithoutNone))
 
   private val genListWithRandomString: Gen[List[String]] =
     genList(Gen.union(Gen.unit("one"), Gen.int.map(_.toString)))
@@ -31,15 +29,14 @@ class OptionSuite extends PropSuite:
   private val genListWithValidNumbers: Gen[List[String]] =
     genList(Gen.int.map(_.toString))
 
-  private val genStringList: Gen[List[String]] =
-    Gen.union(genListWithRandomString, genListWithValidNumbers)
+  private val genStringList: Gen[List[String]] = Gen
+    .union(genListWithRandomString, genListWithValidNumbers)
 
-  private val intToString: Int => String = a => a.toString
+  private val intToString: Int => String            = a => a.toString
   private val intToOptString: Int => Option[String] = a => Some(a.toString)
-  private val strToOptInt: String => Option[Int] =
-    _.toIntOption match
-      case SNone        => None
-      case SSome(value) => Some(value)
+  private val strToOptInt: String => Option[Int] = _.toIntOption match
+    case SNone        => None
+    case SSome(value) => Some(value)
 
   private val otherOpt: Option[Int] = Some(1)
 
@@ -52,8 +49,9 @@ class OptionSuite extends PropSuite:
     case Some(n) => assertEquals(Some(n).getOrElse(1), n)
 
   test("Option.flatMap")(genIntOption):
-    case None    => assertEquals(None.flatMap(intToOptString), None)
-    case Some(n) => assertEquals(Some(n).flatMap(intToOptString), Some(n.toString))
+    case None => assertEquals(None.flatMap(intToOptString), None)
+    case Some(n) =>
+      assertEquals(Some(n).flatMap(intToOptString), Some(n.toString))
 
   test("Option.orElse")(genIntOption):
     case None => assertEquals(None.orElse(otherOpt), otherOpt)
@@ -66,20 +64,23 @@ class OptionSuite extends PropSuite:
       assertEquals(Some(n).filter(a => a == n + 1), None)
 
   test("Option.mean")(genDoubleList): list =>
-    assertEquals(Option.mean(list), if list.isEmpty then None else Some(list.sum / list.length))
+    assertEquals(
+      Option.mean(list),
+      if list.isEmpty then None else Some(list.sum / list.length))
 
   test("Option.variance")(genDoubleList): list =>
     val expected =
       if list.isEmpty then None
       else
-        val m = list.sum / list.length
+        val m       = list.sum / list.length
         val newList = list.map(x => math.pow(x - m, 2))
         Some(newList.sum / newList.length)
     assertEquals(Option.variance(list), expected)
 
   test("Option.map2")(genIntOption ** genIntOption):
-    case (Some(a), Some(b)) => assertEquals(Option.map2(Some(a), Some(b))(_ + _), Some(a + b))
-    case (opt1, opt2)       => assertEquals(Option.map2(opt1, opt2)(_ + _), None)
+    case (Some(a), Some(b)) =>
+      assertEquals(Option.map2(Some(a), Some(b))(_ + _), Some(a + b))
+    case (opt1, opt2) => assertEquals(Option.map2(opt1, opt2)(_ + _), None)
 
   test("Option.sequence")(genOptionSeq): optionList =>
     val expected: Option[List[Int]] =
@@ -89,6 +90,6 @@ class OptionSuite extends PropSuite:
 
   test("Option.traverse")(genStringList): list =>
     val expected: Option[List[Int]] =
-      if list.contains("one") then None
-      else Some(list.flatMap(_.toIntOption))
+      if list.contains("one") then None else Some(list.flatMap(_.toIntOption))
     assertEquals(Option.traverse(list)(strToOptInt), expected)
+end OptionSuite
